@@ -1,10 +1,11 @@
 package com.example.Daddy.s.Coffee.Coffee;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -15,9 +16,25 @@ public class CoffeeJPAResource {
     private CoffeeJPARepo coffeeJPARepo;
 
     @GetMapping("/jpa/coffee/viewall")
-    public List<Coffee> getAllTodos(){
+    public List<Coffee> getAllCoffee(){
 
         return coffeeJPARepo.findAll();
+
+    }
+
+    @PostMapping("/jpa/users/{username}/todos")
+    public ResponseEntity<Void> createCoffee(@PathVariable String username,
+                                           @RequestBody Coffee coffee){
+
+        //Todo createdTodo = todoService.saveii(todo);
+        coffee.setUsername(username);
+        Coffee createdCoffee = coffeeJPARepo.save(coffee);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(createdCoffee.getId()).toUri();
+
+
+        return ResponseEntity.created(uri).build();
 
     }
 
