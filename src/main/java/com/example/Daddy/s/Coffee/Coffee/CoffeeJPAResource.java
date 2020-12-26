@@ -25,7 +25,7 @@ public class CoffeeJPAResource {
     }
 
     /** Add a new order **/
-    @PostMapping("/jpa/users/{username}/todos")
+    @PostMapping("/jpa/{username}/coffee")
     public ResponseEntity<Void> createCoffee(@PathVariable String username,
                                            @RequestBody Coffee coffee){
 
