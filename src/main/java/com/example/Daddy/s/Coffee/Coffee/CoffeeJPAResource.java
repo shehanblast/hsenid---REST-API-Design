@@ -12,9 +12,11 @@ import java.util.List;
 @RestController
 public class CoffeeJPAResource {
 
+    /** create a object from JPA interface **/
     @Autowired
     private CoffeeJPARepo coffeeJPARepo;
 
+    /** view products **/
     @GetMapping("/jpa/coffee/viewall")
     public List<Coffee> getAllCoffee(){
 
@@ -22,6 +24,7 @@ public class CoffeeJPAResource {
 
     }
 
+    /** Add a new order **/
     @PostMapping("/jpa/users/{username}/todos")
     public ResponseEntity<Void> createCoffee(@PathVariable String username,
                                            @RequestBody Coffee coffee){
